@@ -542,13 +542,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1624309175519414893, guid: 514320ab8353ac3478baf26af57b345e, type: 3}
+      propertyPath: objects.Array.data[0]
+      value: 
+      objectReference: {fileID: 2078140346}
+    - target: {fileID: 1624309175519414893, guid: 514320ab8353ac3478baf26af57b345e, type: 3}
+      propertyPath: objects.Array.data[1]
+      value: 
+      objectReference: {fileID: 198700869}
+    - target: {fileID: 1624309175519414893, guid: 514320ab8353ac3478baf26af57b345e, type: 3}
+      propertyPath: objects.Array.data[2]
+      value: 
+      objectReference: {fileID: 149902228}
+    - target: {fileID: 1624309175519414893, guid: 514320ab8353ac3478baf26af57b345e, type: 3}
+      propertyPath: objects.Array.data[3]
+      value: 
+      objectReference: {fileID: 292741934}
+    - target: {fileID: 1624309175519414893, guid: 514320ab8353ac3478baf26af57b345e, type: 3}
+      propertyPath: objects.Array.data[4]
+      value: 
+      objectReference: {fileID: 1812581175}
     - target: {fileID: 1758517634843921120, guid: 514320ab8353ac3478baf26af57b345e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c0a20484c8e8b3c4b88da63fd42c4124, type: 2}
     - target: {fileID: 2095207063001542989, guid: 514320ab8353ac3478baf26af57b345e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.14
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2095207063001542989, guid: 514320ab8353ac3478baf26af57b345e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -700,6 +720,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 22.13, z: 0}
+--- !u!1 &2078140346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6258446647809094766, guid: f7844a3e8968d9147875e6a6a5df41db, type: 3}
+  m_PrefabInstance: {fileID: 6707335580172855906}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6707335580172855906
 PrefabInstance:
   m_ObjectHideFlags: 0
