@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7655683034709647729}
   - component: {fileID: 5609941840117274043}
   - component: {fileID: 2954891759573415565}
+  - component: {fileID: 898210823434804093}
   m_Layer: 0
   m_Name: DOUGHNUT
   m_TagString: Untagged
@@ -106,3 +107,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8803937527578110353, guid: a476715c5f05b5047a553a822c8bbae5, type: 3}
+--- !u!114 &898210823434804093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6258446647809094766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240f22c828f5dc344b8056346d063f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationMagnitude: 1
+  rotationMagnitude: 45
+  scaleMagnitude: 0.5
+  frequency: 1

@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 149902231}
   - component: {fileID: 149902230}
   - component: {fileID: 149902229}
+  - component: {fileID: 149902233}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -230,6 +231,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &149902233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149902228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240f22c828f5dc344b8056346d063f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationMagnitude: 0.5
+  rotationMagnitude: 2
+  scaleMagnitude: 0.3
+  frequency: 0.5
 --- !u!1 &198700869
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +259,7 @@ GameObject:
   - component: {fileID: 198700872}
   - component: {fileID: 198700871}
   - component: {fileID: 198700870}
+  - component: {fileID: 198700874}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -337,6 +355,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &198700874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198700869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240f22c828f5dc344b8056346d063f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationMagnitude: 2
+  rotationMagnitude: 10
+  scaleMagnitude: 1
+  frequency: 3
 --- !u!1 &292741934
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +383,7 @@ GameObject:
   - component: {fileID: 292741937}
   - component: {fileID: 292741936}
   - component: {fileID: 292741935}
+  - component: {fileID: 292741939}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -442,6 +477,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &292741939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292741934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240f22c828f5dc344b8056346d063f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationMagnitude: 5
+  rotationMagnitude: 5
+  scaleMagnitude: 0.3
+  frequency: 4
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,13 +578,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21347299, y: -0, z: -0, w: 0.976949}
-  m_LocalPosition: {x: 0, y: 6.07, z: -12.98}
+  m_LocalRotation: {x: 0.2270404, y: -0, z: -0, w: 0.97388536}
+  m_LocalPosition: {x: 0, y: 7.07, z: -15.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 24.652, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.246, y: 0, z: 0}
 --- !u!1001 &1654744672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -627,6 +678,7 @@ GameObject:
   - component: {fileID: 1812581178}
   - component: {fileID: 1812581177}
   - component: {fileID: 1812581176}
+  - component: {fileID: 1812581180}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -720,6 +772,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 22.13, z: 0}
+--- !u!114 &1812581180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812581175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240f22c828f5dc344b8056346d063f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationMagnitude: 0.5
+  rotationMagnitude: 200
+  scaleMagnitude: 1
+  frequency: 0.5
 --- !u!1 &2078140346 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6258446647809094766, guid: f7844a3e8968d9147875e6a6a5df41db, type: 3}
