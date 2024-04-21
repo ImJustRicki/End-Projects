@@ -2,21 +2,21 @@ Shader "Unlit/Phong"
 {
     Properties
     {
-        _PointLightColor ("Point Light Color", Color) = (1, 1, 1, 1)
-        _PointLightIntensity ("Point Light Intensity", Range(0, 10)) = 1.0
-        _SpotLightColor1 ("Spot Light Color 1", Color) = (1, 0, 0, 1)
-        _SpotLightIntensity1 ("Spot Light Intensity 1", Range(0, 10)) = 1.0
-        _SpotLightColor2 ("Spot Light Color 2", Color) = (0, 1, 0, 1)
-        _SpotLightIntensity2 ("Spot Light Intensity 2", Range(0, 10)) = 1.0
-        _SpotLightColor3 ("Spot Light Color 3", Color) = (0, 0, 1, 1)
-        _SpotLightIntensity3 ("Spot Light Intensity 3", Range(0, 10)) = 1.0
-        _DirectionalLightColor ("Directional Light Color", Color) = (1, 1, 1, 1)
-        _DirectionalLightIntensity ("Directional Light Intensity", Range(0, 10)) = 1.0
+        // Common properties for all shapes
         _Ambient ("Ambient Intensity", Range(0, 1)) = 0.1
         _Diffuse ("Diffuse Intensity", Range(0, 1)) = 1.0
         _Specular ("Specular Intensity", Range(0, 1)) = 1.0
         _Radius ("Light Radius", Float) = 15.0
         _Cutoff ("Spot Light Cutoff", Float) = 0.707 // Cosine of 45 degrees
+
+        // Properties for each shape
+        _PointLightColor1 ("Point Light Color 1", Color) = (1, 1, 1, 1)
+        _PointLightColor2 ("Point Light Color 2", Color) = (1, 1, 1, 1)
+        _PointLightColor3 ("Point Light Color 3", Color) = (1, 1, 1, 1)
+        _SpotLightColor1 ("Spot Light Color 1", Color) = (1, 0, 0, 1)
+        _SpotLightColor2 ("Spot Light Color 2", Color) = (0, 1, 0, 1)
+        _SpotLightColor3 ("Spot Light Color 3", Color) = (0, 0, 1, 1)
+        _DirectionalLightColor ("Directional Light Color", Color) = (1, 1, 1, 1)
     }
 
     SubShader
@@ -54,27 +54,31 @@ Shader "Unlit/Phong"
             }
 
             // Uniform variables declaration
-            uniform float4 _PointLightColor;
-            uniform float _PointLightIntensity;
-            uniform float3 _PointLightPosition;
-            uniform float3 _SpotLightColor1;
-            uniform float _SpotLightIntensity1;
-            uniform float3 _SpotLightPosition1; // Declaration for spot light position 1
-            uniform float3 _SpotLightColor2;
-            uniform float _SpotLightIntensity2;
-            uniform float3 _SpotLightPosition2; // Declaration for spot light position 2
-            uniform float3 _SpotLightColor3;
-            uniform float _SpotLightIntensity3;
-            uniform float3 _SpotLightPosition3; // Declaration for spot light position 3
-            uniform float3 _DirectionalLightColor;
-            uniform float _DirectionalLightIntensity;
-            uniform float3 _DirectionalLightDirection; // Add declaration for directional light direction
-            uniform float3 _CameraPosition;
             uniform float _Ambient;
             uniform float _Diffuse;
             uniform float _Specular;
             uniform float _Radius;
             uniform float _Cutoff;
+
+            uniform float4 _PointLightColor1;
+            uniform float4 _PointLightColor2;
+            uniform float4 _PointLightColor3;
+            uniform float4 _SpotLightColor1;
+            uniform float4 _SpotLightColor2;
+            uniform float4 _SpotLightColor3;
+            uniform float4 _DirectionalLightColor;
+            uniform float4 _PointLightColor;
+            uniform float _PointLightIntensity;
+            uniform float3 _PointLightPosition;
+            uniform float _SpotLightIntensity1;
+            uniform float3 _SpotLightPosition1; // Declaration for spot light position 1
+            uniform float _SpotLightIntensity2;
+            uniform float3 _SpotLightPosition2; // Declaration for spot light position 2
+            uniform float _SpotLightIntensity3;
+            uniform float3 _SpotLightPosition3; // Declaration for spot light position 3
+            uniform float _DirectionalLightIntensity;
+            uniform float3 _DirectionalLightDirection; // Add declaration for directional light direction
+            uniform float3 _CameraPosition;
 
             float4 frag (v2f i) : SV_Target
             {
@@ -97,7 +101,7 @@ Shader "Unlit/Phong"
                 float3 spotLightColor = float3(0.0, 0.0, 0.0);
                 float3 spotLightPositions[3] = { _SpotLightPosition1, _SpotLightPosition2, _SpotLightPosition3 };
                 float spotLightIntensities[3] = { _SpotLightIntensity1, _SpotLightIntensity2, _SpotLightIntensity3 };
-                float3 spotLightColors[3] = { _SpotLightColor1, _SpotLightColor2, _SpotLightColor3 };
+                float4 spotLightColors[3] = { _SpotLightColor1, _SpotLightColor2, _SpotLightColor3 };
                 for (int j = 0; j < 3; j++)
                 {
                     float3 spotToLight = spotLightPositions[j] - i.position;
