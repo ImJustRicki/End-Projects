@@ -1,27 +1,5 @@
-Shader "Unlit/Phong"
+Shader"Unlit/Phong"
 {
-    Properties
-    {
-        // Common properties for all shapes
-        _Ambient ("Ambient Intensity", Range(0, 1)) = 0.1
-        _Diffuse ("Diffuse Intensity", Range(0, 1)) = 1.0
-        _Specular ("Specular Intensity", Range(0, 1)) = 1.0
-        _Radius ("Light Radius", Float) = 15.0
-        _Cutoff ("Spot Light Cutoff", Float) = 0.707 // Cosine of 45 degrees
-
-        // Properties for each shape
-        _PointLightColor ("Point Light Color", Color) = (1, 1, 1)
-        _SpotLightColor ("Spot Light Color", Color) = (1, 1, 1)
-        _DirectionalLightColor ("Directional Light Color", Color) = (1, 1, 1)
-        _PointLightIntensity ("Point Light Intensity", Range(0, 1)) = 1.0
-        _SpotLightIntensity ("Spot Light Intensity", Range(0, 1)) = 1.0
-        _DirectionalLightIntensity ("Directional Light Intensity", Range(0, 1)) = 1.0
-        _PointLightPosition ("Point Light Position", Vector) = (0, 0, 0)
-        _SpotLightPosition ("Spot Light Position", Vector) = (0, 0, 0)
-        _DirectionalLightDirection ("Directional Light Direction", Vector) = (0, 0, -1)
-        _CameraPosition ("Camera Position", Vector) = (0, 0, 0)
-    }
-
     SubShader
     {
         Pass
@@ -29,95 +7,84 @@ Shader "Unlit/Phong"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
+#include "UnityCG.cginc"
 
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float3 normal : NORMAL;
-                float2 uv : TEXCOORD0;
-            };
+struct appdata
+{
+    float4 vertex : POSITION;
+    float3 normal : NORMAL;
+    float2 uv : TEXCOORD0;
+};
 
-            struct v2f
-            {
-                float4 vertex : SV_POSITION;
-                float3 position : TEXCOORD2;
-                float3 normal : TEXCOORD1;
-                float2 uv : TEXCOORD0;
-            };
+struct v2f
+{
+    float4 vertex : SV_POSITION;
+    float3 position : TEXCOORD2;
+    float3 normal : TEXCOORD1;
+    float2 uv : TEXCOORD0;
+};
 
-            v2f vert (appdata v)
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.position = mul(unity_ObjectToWorld, v.vertex).xyz;
-                o.normal = UnityObjectToWorldNormal(v.normal);
-                o.uv = v.uv;
-                return o;
-            }
+v2f vert(appdata v)
+{
+    v2f o;
+    o.vertex = UnityObjectToClipPos(v.vertex);
+    o.position = mul(unity_ObjectToWorld, v.vertex);
+    o.normal = UnityObjectToWorldNormal(v.normal);
+    o.uv = v.uv;
+    return o;
+}
 
-            // Uniform variables declaration
-            uniform float _Ambient;
-            uniform float _Diffuse;
-            uniform float _Specular;
-            uniform float _Radius;
-            uniform float _Cutoff;
+float4 _LightColor;
+float3 _LightPosition;
+float3 _CameraPosition;
+float _Ambient;
+float _Diffuse;
+float _Specular;
 
-            uniform float4 _PointLightColor;
-            uniform float4 _SpotLightColor;
-            uniform float4 _DirectionalLightColor;
-            uniform float _PointLightIntensity;
-            uniform float _SpotLightIntensity;
-            uniform float _DirectionalLightIntensity;
-            uniform float3 _PointLightPosition;
-            uniform float3 _SpotLightPosition;
-            uniform float3 _DirectionalLightDirection;
-            uniform float3 _CameraPosition;
+            // point light
+float3 _PointLightPosition;
+float3 _PointLightColor;
+float _PointLightRange;
 
-            float4 frag (v2f i) : SV_Target
-            {
-                float3 N = normalize(i.normal);
-                float3 V = normalize(_CameraPosition - i.position);
+            // directional light
+float3 _DirectionalLightDirection;
+float3 _DirectionalLightColor;
 
-                // Phong lighting contribution from point light
-                float3 pointLightColor = _PointLightColor.rgb * _Ambient * _PointLightIntensity;
-                float3 pointToLight = _PointLightPosition - i.position;
-                float distanceToPointLight = length(pointToLight);
-                float attenuation = clamp(1.0 - distanceToPointLight / _Radius, 0.0, 1.0);
-                float3 L = normalize(pointToLight);
-                float dotNL = max(dot(N, L), 0.0);
-                pointLightColor += _PointLightColor.rgb * _Diffuse * dotNL * attenuation * _PointLightIntensity;
-                float3 R = reflect(-L, N);
-                float dotVR = max(dot(V, R), 0.0);
-                pointLightColor += _PointLightColor.rgb * pow(dotVR, _Specular) * attenuation * _PointLightIntensity;
+            // spotlight
+float3 _SpotLightPosition;
+float3 _SpotLightDirection;
+float3 _SpotLightColor;
+float _SpotLightRange;
+float _SpotLightAngle;
 
-                // Phong lighting contribution from spot light
-                float3 spotLightColor = float3(0.0, 0.0, 0.0);
-                float3 spotToLight = _SpotLightPosition - i.position;
-                float distanceToSpotLight = length(spotToLight);
-                float spotAttenuation = clamp(1.0 - distanceToSpotLight / _Radius, 0.0, 1.0);
-                float3 spotDirection = normalize(spotToLight);
-                float spotAngle = dot(-spotDirection, _DirectionalLightDirection);
-                if (spotAngle > _Cutoff)
-                {
-                    L = normalize(spotToLight);
-                    dotNL = max(dot(N, L), 0.0);
-                    spotLightColor += _SpotLightColor.rgb * _Diffuse * dotNL * spotAttenuation * _SpotLightIntensity;
-                    R = reflect(-L, N);
-                    dotVR = max(dot(V, R), 0.0);
-                    spotLightColor += _SpotLightColor.rgb * pow(dotVR, _Specular) * spotAttenuation * _SpotLightIntensity;
-                }
+float4 frag(v2f i) : SV_Target
+{
+                // point light
+    float3 pointLightDir = normalize(_PointLightPosition - i.position);
+    float pointLightAttenuation = saturate(1.0 - distance(i.position, _PointLightPosition) / _PointLightRange);
+    float3 pointLightDiffuse = _PointLightColor * _Diffuse * max(dot(i.normal, pointLightDir), 0.0) * pointLightAttenuation;
 
-                // Phong lighting contribution from directional light
-                float3 directionLightColor = _DirectionalLightColor.rgb * _Diffuse * dotNL * _DirectionalLightIntensity;
-                R = reflect(-L, N);
-                dotVR = max(dot(V, R), 0.0);
-                directionLightColor += _DirectionalLightColor.rgb * pow(dotVR, _Specular) * _DirectionalLightIntensity;
+                // directional light
+    float3 directionalLightDir = normalize(_DirectionalLightDirection);
+    float3 directionalLightDiffuse = _DirectionalLightColor * _Diffuse * max(dot(i.normal, directionalLightDir), 0.0);
 
-                float3 finalColor = pointLightColor + spotLightColor + directionLightColor;
-                return float4(finalColor, 1.0);
-            }
+                // spotlight
+    float3 spotLightDir = normalize(_SpotLightPosition - i.position);
+    float spotLightAttenuation = saturate(1.0 - distance(i.position, _SpotLightPosition) / _SpotLightRange);
+    float spotLightDot = dot(-spotLightDir, normalize(_SpotLightDirection));
+    float spotLightDiffuse = _SpotLightColor * _Diffuse * max(dot(i.normal, spotLightDir), 0.0) * saturate((spotLightDot - _SpotLightAngle) / (1.0 - _SpotLightAngle)) * spotLightAttenuation;
+
+               
+    float4 col = float4(0.0, 0.0, 0.0, 1.0);
+    col += _LightColor * _Ambient;
+    col += pointLightDiffuse;
+    col += directionalLightDiffuse;
+    col += _LightColor * pow(dot(-normalize(_CameraPosition - i.position), reflect(-normalize(_LightPosition - i.position), normalize(i.normal))), _Specular);
+    col += spotLightDiffuse;
+
+    return col;
+}
             ENDCG
         }
     }
-}
+}                               

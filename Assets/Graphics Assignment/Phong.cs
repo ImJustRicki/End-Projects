@@ -7,17 +7,7 @@ public class Phong : MonoBehaviour
     public GameObject[] objects;
     Material phong;
 
-    public Color pointLightColor;
-    public Vector3 pointLightPosition;
-    public float pointLightIntensity;
-
-    public Color[] spotLightColors;
-    public Vector3[] spotLightPositions;
-    public float[] spotLightIntensities;
-
-    public Color directionalLightColor;
-    public Vector3 directionalLightDirection;
-    public float directionalLightIntensity;
+    public Color lightColor;
 
     [Range(0.0f, 1.0f)]
     public float ambient;
@@ -44,21 +34,8 @@ public class Phong : MonoBehaviour
     void Update()
     {
         specular = ToNearest(specular);
-        phong.SetColor("_PointLightColor", pointLightColor);
-        phong.SetVector("_PointLightPosition", pointLightPosition);
-        phong.SetFloat("_PointLightIntensity", pointLightIntensity);
-
-        for (int i = 0; i < spotLightColors.Length; i++)
-        {
-            phong.SetColor("_SpotLightColor" + (i + 1), spotLightColors[i]);
-            phong.SetVector("_SpotLightPosition" + (i + 1), spotLightPositions[i]);
-            phong.SetFloat("_SpotLightIntensity" + (i + 1), spotLightIntensities[i]);
-        }
-
-        phong.SetColor("_DirectionalLightColor", directionalLightColor);
-        phong.SetVector("_DirectionalLightDirection", directionalLightDirection);
-        phong.SetFloat("_DirectionalLightIntensity", directionalLightIntensity);
-
+        phong.SetColor("_LightColor", lightColor);
+        phong.SetVector("_LightPosition", transform.position);
         phong.SetVector("_CameraPosition", Camera.main.transform.position);
 
         phong.SetFloat("_Ambient", ambient);
