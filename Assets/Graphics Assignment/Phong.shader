@@ -41,16 +41,16 @@ float _Ambient;
 float _Diffuse;
 float _Specular;
 
-            // point light
+// point light
 float3 _PointLightPosition;
 float3 _PointLightColor;
 float _PointLightRange;
 
-            // directional light
+// directional light
 float3 _DirectionalLightDirection;
 float3 _DirectionalLightColor;
 
-            // spotlight
+// spotlight
 float3 _SpotLightPosition;
 float3 _SpotLightDirection;
 float3 _SpotLightColor;
@@ -59,22 +59,21 @@ float _SpotLightAngle;
 
 float4 frag(v2f i) : SV_Target
 {
-                // point light
+    // point light
     float3 pointLightDir = normalize(_PointLightPosition - i.position);
     float pointLightAttenuation = saturate(1.0 - distance(i.position, _PointLightPosition) / _PointLightRange);
-    float3 pointLightDiffuse = _PointLightColor * _Diffuse * max(dot(i.normal, pointLightDir), 0.0) * pointLightAttenuation;
+    float4 pointLightDiffuse = float4(_PointLightColor, 1.0) * _Diffuse * max(dot(i.normal, pointLightDir), 0.0) * pointLightAttenuation;
 
-                // directional light
+    // directional light
     float3 directionalLightDir = normalize(_DirectionalLightDirection);
-    float3 directionalLightDiffuse = _DirectionalLightColor * _Diffuse * max(dot(i.normal, directionalLightDir), 0.0);
+    float4 directionalLightDiffuse = float4(_DirectionalLightColor, 1.0) * _Diffuse * max(dot(i.normal, directionalLightDir), 0.0);
 
-                // spotlight
+    // spotlight
     float3 spotLightDir = normalize(_SpotLightPosition - i.position);
     float spotLightAttenuation = saturate(1.0 - distance(i.position, _SpotLightPosition) / _SpotLightRange);
     float spotLightDot = dot(-spotLightDir, normalize(_SpotLightDirection));
-    float spotLightDiffuse = _SpotLightColor * _Diffuse * max(dot(i.normal, spotLightDir), 0.0) * saturate((spotLightDot - _SpotLightAngle) / (1.0 - _SpotLightAngle)) * spotLightAttenuation;
+    float4 spotLightDiffuse = float4(_SpotLightColor, 1.0) * _Diffuse * max(dot(i.normal, spotLightDir), 0.0) * saturate((spotLightDot - _SpotLightAngle) / (1.0 - _SpotLightAngle)) * spotLightAttenuation;
 
-               
     float4 col = float4(0.0, 0.0, 0.0, 1.0);
     col += _LightColor * _Ambient;
     col += pointLightDiffuse;
@@ -87,4 +86,4 @@ float4 frag(v2f i) : SV_Target
             ENDCG
         }
     }
-}                               
+}                           
