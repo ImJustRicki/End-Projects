@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: spotlight
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 17a7b5d8439ee7446b683a5c80557fb0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -74,10 +74,16 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpotlightAngle: 52.5
+    - _SpotlightIntensity: 13.73
+    - _SpotlightRange: 40.6
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpotlightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpotlightDirection: {r: 0, g: -1, b: 0, a: 0}
+    - _SpotlightPosition: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
