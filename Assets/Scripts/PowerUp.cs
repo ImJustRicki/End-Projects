@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    public AudioClip coin;
+    public AudioSource source;
     public enum Type
     {
         Coin,
@@ -32,6 +34,7 @@ public class PowerUp : MonoBehaviour
 
             case Type.ExtraLife:
                 GameManager.Instance.AddLife();
+                source.PlayOneShot(coin);
                 break;
 
             case Type.MagicMushroom:

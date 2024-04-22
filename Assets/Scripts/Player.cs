@@ -15,6 +15,10 @@ public class Player : MonoBehaviour
     public bool dead => deathAnimation.enabled;
     public bool starpower { get; private set; }
 
+    public AudioClip coin;
+    public AudioClip star;
+    public AudioSource source;
+
     private void Awake()
     {
         capsuleCollider = GetComponent<CapsuleCollider2D>();
@@ -104,6 +108,7 @@ public class Player : MonoBehaviour
 
         float elapsed = 0f;
         float duration = 10f;
+        source.PlayOneShot(star);
 
         while (elapsed < duration)
         {

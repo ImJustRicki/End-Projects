@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
     public bool sliding => (inputAxis > 0f && velocity.x < 0f) || (inputAxis < 0f && velocity.x > 0f);
     public bool falling => velocity.y < 0f && !grounded;
 
+    public AudioClip stomp;
+    public AudioClip jump;
+    public AudioSource source;
+
     private void Awake()
     {
         camera = Camera.main;
@@ -109,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = jumpForce;
             jumping = true;
+            source.PlayOneShot(jump);
         }
     }
 
@@ -132,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 velocity.y = jumpForce / 2f;
                 jumping = true;
+                source.PlayOneShot(stomp);
             }
         }
         else if (collision.gameObject.layer != LayerMask.NameToLayer("PowerUp"))
